@@ -10,13 +10,38 @@
     height: 15px;
     width: 15px;
     background-color: rgba(255, 252, 252, 0.945);
-    /* Color de los bullets inactivos */
 }
 
-/* Cambia el color del bullet activo */
 .swiper-pagination-bullet-active {
     border-radius: 40px;
     width: 50px;
     background-color: #F0B90B;
-    /* Color del bullet activo */
+}
+
+.custom-range {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 100%;
+    background: transparent;
+}
+
+.custom-range::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 4px;
+    background: #4DA14F;
+    /* Color del riel */
+    border-radius: 5px;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.12);
+}
+
+.custom-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    background: #F0B90B;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-top: -6px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }

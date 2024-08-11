@@ -287,9 +287,8 @@ function MainBanner() {
             </div>
           </section>
         </SwiperSlide>
-        
       </Swiper>
-      <div className="h-10 bg-black"></div>
+      <div className="h-10 bg-black">s</div>
     </div>
   );
 }
