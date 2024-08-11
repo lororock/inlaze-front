@@ -1,0 +1,21 @@
+.swiper-pagination-fraction,
+.swiper-pagination-custom,
+.swiper-horizontal>.swiper-pagination-bullets,
+.swiper-pagination-bullets.swiper-pagination-horizontal {
+    bottom: var(--swiper-pagination-bottom, 0px);
+}
+
+.swiper-pagination-bullet {
+    height: 15px;
+    width: 15px;
+    background-color: rgba(255, 252, 252, 0.945);
+    /* Color de los bullets inactivos */
+}
+
+/* Cambia el color del bullet activo */
+.swiper-pagination-bullet-active {
+    border-radius: 40px;
+    width: 50px;
+    background-color: #F0B90B;
+    /* Color del bullet activo */
+}
