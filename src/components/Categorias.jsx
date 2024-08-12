@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { getPopulars } from "../services/getData";
+import { getNowPlaying } from "../services/getData";
+import { getUpComing } from "../services/getData";
+import { getTopRated } from "../services/getData";
 
 import Filters from "./Filters";
 
@@ -34,14 +37,23 @@ function Categorias() {
   };
 
   const [popularsData, setPopularsData] = useState(null);
+  const [playingsData, setPlayingsData] = useState(null);
+  const [comingsData, setComingsData] = useState(null);
+  const [ratedsData, setRatesData] = useState(null);
+
   const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchMovieData = async () => {
       try {
         const data = await getPopulars();
-        console.log("popular", data);
+        const data2 = await getNowPlaying();
+        const data3 = await getUpComing();
+        const data4 = await getTopRated();
         setPopularsData(data);
+        setPlayingsData(data2);
+        setComingsData(data3);
+        setRatesData(data4);
       } catch (error) {
         console.error("Error al obtener los datos de la película:", error);
         setError(error);
@@ -100,63 +112,71 @@ function Categorias() {
                       <p className="text-gray-400">{movie.release_date}</p>
                       <div className="flex items-center justify-between mt-2">
                         <div className="flex items-center justify-center cursor-default">
-                          <svg
-                            width="60"
-                            height="60"
-                            viewBox="0 0 120 120"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <circle
-                              cx="60"
-                              cy="60"
-                              r={radius}
-                              stroke={darkColor}
-                              strokeWidth="5"
-                              fill="none"
-                            />
-                            <circle
-                              cx="60"
-                              cy="60"
-                              r={radius}
-                              stroke={color}
-                              strokeWidth="5"
-                              fill="none"
-                              strokeDasharray={circumference}
-                              strokeDashoffset={getStrokeDashoffset(percentage)}
-                              strokeLinecap="round"
-                              transform="rotate(-90 60 60)"
-                            />
-                            <text
-                              x="50%"
-                              y="50%"
-                              textAnchor="middle"
-                              dy=".3em"
-                              className="text-3xl font-bold"
-                              fill="white"
+                          <div className="flex flex-col items-center">
+                            <h6 className="mb-1">Rating</h6>
+                            <svg
+                              width="40"
+                              height="40"
+                              viewBox="0 0 120 120"
+                              xmlns="http://www.w3.org/2000/svg"
                             >
-                              {percentage}%
-                            </text>
-                          </svg>
+                              <circle
+                                cx="60"
+                                cy="60"
+                                r={radius}
+                                stroke={darkColor}
+                                strokeWidth="5"
+                                fill="none"
+                              />
+                              <circle
+                                cx="60"
+                                cy="60"
+                                r={radius}
+                                stroke={color}
+                                strokeWidth="5"
+                                fill="none"
+                                strokeDasharray={circumference}
+                                strokeDashoffset={getStrokeDashoffset(
+                                  percentage
+                                )}
+                                strokeLinecap="round"
+                                transform="rotate(-90 60 60)"
+                              />
+                              <text
+                                x="50%"
+                                y="50%"
+                                textAnchor="middle"
+                                dy=".3em"
+                                className="text-3xl font-bold"
+                                fill="white"
+                              >
+                                {percentage}%
+                              </text>
+                            </svg>
+                          </div>
                         </div>
-                        <div className="flex items-center space-x-2">
+                        <div className="flex flex-col items-center">
+                          <h6 className="mb-1">Favorites</h6>
                           <svg
-                            className="cursor-pointer"
-                            width="24"
-                            height="25"
-                            viewBox="0 0 24 25"
+                            width="40"
+                            height="40"
+                            viewBox="0 0 25 25"
                             fill="none"
                             xmlns="http://www.w3.org/2000/svg"
                           >
                             <path
-                              d="M12 21.5L10.55 20.2C8.86667 18.6833 7.475 17.375 6.375 16.275C5.275 15.175 4.4 14.1917 3.75 13.325C3.1 12.4417 2.64167 11.6333 2.375 10.9C2.125 10.1667 2 9.41667 2 8.65C2 7.08334 2.525 5.775 3.575 4.725C4.625 3.675 5.93333 3.15 7.5 3.15C8.36667 3.15 9.19167 3.33333 9.975 3.7C10.7583 4.06667 11.4333 4.58334 12 5.25C12.5667 4.58334 13.2417 4.06667 14.025 3.7C14.8083 3.33333 15.6333 3.15 16.5 3.15C18.0667 3.15 19.375 3.675 20.425 4.725C21.475 5.775 22 7.08334 22 8.65C22 9.41667 21.8667 10.1667 21.6 10.9C21.35 11.6333 20.9 12.4417 20.25 13.325C19.6 14.1917 18.725 15.175 17.625 16.275C16.525 17.375 15.1333 18.6833 13.45 20.2L12 21.5ZM12 18.8C13.6 17.3667 14.9167 16.1417 15.95 15.125C16.9833 14.0917 17.8 13.2 18.4 12.45C19 11.6833 19.4167 11.0083 19.65 10.425C19.8833 9.825 20 9.23334 20 8.65C20 7.65 19.6667 6.81667 19 6.15C18.3333 5.48334 17.5 5.15 16.5 5.15C15.7167 5.15 14.9917 5.375 14.325 5.825C13.6583 6.25834 13.2 6.81667 12.95 7.5H11.05C10.8 6.81667 10.3417 6.25834 9.675 5.825C9.00833 5.375 8.28333 5.15 7.5 5.15C6.5 5.15 5.66667 5.48334 5 6.15C4.33333 6.81667 4 7.65 4 8.65C4 9.23334 4.11667 9.825 4.35 10.425C4.58333 11.0083 5 11.6833 5.6 12.45C6.2 13.2 7.01667 14.0917 8.05 15.125C9.08333 16.1417 10.4 17.3667 12 18.8Z"
+                              d="M23.4375 9.17969C23.4375 16.0156 13.3018 21.5488 12.8701 21.7773C12.7563 21.8385 12.6292 21.8706 12.5 21.8706C12.3708 21.8706 12.2436 21.8385 12.1299 21.7773C11.6982 21.5488 1.5625 16.0156 1.5625 9.17969C1.56431 7.57444 2.20279 6.03546 3.33788 4.90038C4.47296 3.76529 6.01194 3.12681 7.61719 3.125C9.63379 3.125 11.3994 3.99219 12.5 5.45801C13.6006 3.99219 15.3662 3.125 17.3828 3.125C18.9881 3.12681 20.527 3.76529 21.6621 4.90038C22.7972 6.03546 23.4357 7.57444 23.4375 9.17969Z"
                               fill="#F6F6F6"
                             />
                           </svg>
+                        </div>
+                        <div className="flex flex-col items-center">
+                          <h6 className="mb-1">Save</h6>
 
                           <svg
-                            className="cursor-pointer"
-                            width="29"
-                            height="29"
+                            className="cursor-pointer text-center"
+                            width="40"
+                            height="40"
                             viewBox="0 0 29 29"
                             fill="none"
                             xmlns="http://www.w3.org/2000/svg"
@@ -175,49 +195,487 @@ function Categorias() {
             })}
           </Swiper>
 
-          <section>
-            <h2 className="text-2xl font-bold mb-4">Now Playing</h2>
-            <div className="grid grid-cols-5 gap-4">
-              <div className="bg-gray-800 p-2 rounded">
-                <img
-                  src="https://image.tmdb.org/t/p/w500/8cdWjvZQUExUUTzyp4t6EDMubfO.jpg"
-                  alt="Lord of War"
-                  className="rounded mb-2"
-                ></img>
-                <h3 className="text-lg">Lord of War</h3>
-                <p className="text-gray-400">March 10, 2022</p>
-                <div className="flex items-center justify-between mt-2">
-                  <span>82%</span>
-                  <div className="flex space-x-2">
-                    <button className="bg-gray-700 p-1 rounded">❤️</button>
-                    <button className="bg-gray-700 p-1 rounded">💾</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
+          <h2 className="text-2xl font-bold mb-4">Now Playing</h2>
+          <Swiper
+            slidesPerView={5}
+            spaceBetween={20}
+            breakpoints={{
+              1: {
+                slidesPerView: 1,
+                spaceBetween: 10,
+              },
+              768: {
+                slidesPerView: 3,
+                spaceBetween: 15,
+              },
+              1244: {
+                slidesPerView: 5,
+                spaceBetween: 20,
+              },
+            }}
+            className="mySwiper"
+          >
+            {playingsData.results.map((movie, index) => {
+              const percentage = Math.round(movie.vote_average * 10);
+              const color = getColor(percentage);
+              const darkColor = getDarkColor(color);
 
-          <section>
-            <h2 className="text-2xl font-bold mb-4">Upcoming</h2>
-            <div className="grid grid-cols-5 gap-4">
-              <div className="bg-gray-800 p-2 rounded">
-                <img
-                  src="oppenheimer.jpg"
-                  alt="Oppenheimer"
-                  className="rounded mb-2"
-                ></img>
-                <h3 className="text-lg">Oppenheimer</h3>
-                <p className="text-gray-400">August 2, 2024</p>
-                <div className="flex items-center justify-between mt-2">
-                  <span>94%</span>
-                  <div className="flex space-x-2">
-                    <button className="bg-gray-700 p-1 rounded">❤️</button>
-                    <button className="bg-gray-700 p-1 rounded">💾</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
+              return (
+                <SwiperSlide key={index}>
+                  <section>
+                    <div className="bg-[#1C1C1C] p-2 rounded min-h-96">
+                      <img
+                        src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
+                        alt={`Image ${index}`}
+                        className="rounded mb-2 w-full h-80 object-cover"
+                      ></img>
+                      <h3 className="text-lg truncate">{movie.title}</h3>
+                      <p className="text-gray-400">{movie.release_date}</p>
+                      <div className="flex items-center justify-between mt-2">
+                        <div className="flex items-center justify-center cursor-default">
+                          <div className="flex flex-col items-center">
+                            <h6 className="mb-1">Rating</h6>
+                            <svg
+                              width="40"
+                              height="40"
+                              viewBox="0 0 120 120"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <circle
+                                cx="60"
+                                cy="60"
+                                r={radius}
+                                stroke={darkColor}
+                                strokeWidth="5"
+                                fill="none"
+                              />
+                              <circle
+                                cx="60"
+                                cy="60"
+                                r={radius}
+                                stroke={color}
+                                strokeWidth="5"
+                                fill="none"
+                                strokeDasharray={circumference}
+                                strokeDashoffset={getStrokeDashoffset(
+                                  percentage
+                                )}
+                                strokeLinecap="round"
+                                transform="rotate(-90 60 60)"
+                              />
+                              <text
+                                x="50%"
+                                y="50%"
+                                textAnchor="middle"
+                                dy=".3em"
+                                className="text-3xl font-bold"
+                                fill="white"
+                              >
+                                {percentage}%
+                              </text>
+                            </svg>
+                          </div>
+                        </div>
+                        <div className="flex flex-col items-center">
+                          <h6 className="mb-1">Favorites</h6>
+                          <svg
+                            width="40"
+                            height="40"
+                            viewBox="0 0 25 25"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M23.4375 9.17969C23.4375 16.0156 13.3018 21.5488 12.8701 21.7773C12.7563 21.8385 12.6292 21.8706 12.5 21.8706C12.3708 21.8706 12.2436 21.8385 12.1299 21.7773C11.6982 21.5488 1.5625 16.0156 1.5625 9.17969C1.56431 7.57444 2.20279 6.03546 3.33788 4.90038C4.47296 3.76529 6.01194 3.12681 7.61719 3.125C9.63379 3.125 11.3994 3.99219 12.5 5.45801C13.6006 3.99219 15.3662 3.125 17.3828 3.125C18.9881 3.12681 20.527 3.76529 21.6621 4.90038C22.7972 6.03546 23.4357 7.57444 23.4375 9.17969Z"
+                              fill="#F6F6F6"
+                            />
+                          </svg>
+                        </div>
+                        <div className="flex flex-col items-center">
+                          <h6 className="mb-1">Save</h6>
+
+                          <svg
+                            className="cursor-pointer text-center"
+                            width="40"
+                            height="40"
+                            viewBox="0 0 29 29"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M7.20837 23.875V7.20833C7.20837 6.63542 7.41237 6.14497 7.82035 5.73698C8.22834 5.32899 8.71879 5.125 9.29171 5.125H19.7084C20.2813 5.125 20.7717 5.32899 21.1797 5.73698C21.5877 6.14497 21.7917 6.63542 21.7917 7.20833V23.875L14.5 20.75L7.20837 23.875Z"
+                              fill="#F6F6F6"
+                            />
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+                </SwiperSlide>
+              );
+            })}
+          </Swiper>
+
+          <h2 className="text-2xl font-bold mb-4">Upcoming</h2>
+          <Swiper
+            slidesPerView={5}
+            spaceBetween={20}
+            breakpoints={{
+              1: {
+                slidesPerView: 1,
+                spaceBetween: 10,
+              },
+              768: {
+                slidesPerView: 3,
+                spaceBetween: 15,
+              },
+              1244: {
+                slidesPerView: 5,
+                spaceBetween: 20,
+              },
+            }}
+            className="mySwiper"
+          >
+            {comingsData.results.map((movie, index) => {
+              const percentage = Math.round(movie.vote_average * 10);
+              const color = getColor(percentage);
+              const darkColor = getDarkColor(color);
+
+              return (
+                <SwiperSlide key={index}>
+                  <section>
+                    <div className="bg-[#1C1C1C] p-2 rounded min-h-96">
+                      <img
+                        src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
+                        alt={`Image ${index}`}
+                        className="rounded mb-2 w-full h-80 object-cover"
+                      ></img>
+                      <h3 className="text-lg truncate">{movie.title}</h3>
+                      <p className="text-gray-400">{movie.release_date}</p>
+                      <div className="flex items-center justify-between mt-2">
+                        <div className="flex items-center justify-center cursor-default">
+                          <div className="flex flex-col items-center">
+                            <h6 className="mb-1">Rating</h6>
+                            <svg
+                              width="40"
+                              height="40"
+                              viewBox="0 0 120 120"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <circle
+                                cx="60"
+                                cy="60"
+                                r={radius}
+                                stroke={darkColor}
+                                strokeWidth="5"
+                                fill="none"
+                              />
+                              <circle
+                                cx="60"
+                                cy="60"
+                                r={radius}
+                                stroke={color}
+                                strokeWidth="5"
+                                fill="none"
+                                strokeDasharray={circumference}
+                                strokeDashoffset={getStrokeDashoffset(
+                                  percentage
+                                )}
+                                strokeLinecap="round"
+                                transform="rotate(-90 60 60)"
+                              />
+                              <text
+                                x="50%"
+                                y="50%"
+                                textAnchor="middle"
+                                dy=".3em"
+                                className="text-3xl font-bold"
+                                fill="white"
+                              >
+                                {percentage}%
+                              </text>
+                            </svg>
+                          </div>
+                        </div>
+                        <div className="flex flex-col items-center">
+                          <h6 className="mb-1">Favorites</h6>
+                          <svg
+                            width="40"
+                            height="40"
+                            viewBox="0 0 25 25"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M23.4375 9.17969C23.4375 16.0156 13.3018 21.5488 12.8701 21.7773C12.7563 21.8385 12.6292 21.8706 12.5 21.8706C12.3708 21.8706 12.2436 21.8385 12.1299 21.7773C11.6982 21.5488 1.5625 16.0156 1.5625 9.17969C1.56431 7.57444 2.20279 6.03546 3.33788 4.90038C4.47296 3.76529 6.01194 3.12681 7.61719 3.125C9.63379 3.125 11.3994 3.99219 12.5 5.45801C13.6006 3.99219 15.3662 3.125 17.3828 3.125C18.9881 3.12681 20.527 3.76529 21.6621 4.90038C22.7972 6.03546 23.4357 7.57444 23.4375 9.17969Z"
+                              fill="#F6F6F6"
+                            />
+                          </svg>
+                        </div>
+                        <div className="flex flex-col items-center">
+                          <h6 className="mb-1">Save</h6>
+
+                          <svg
+                            className="cursor-pointer text-center"
+                            width="40"
+                            height="40"
+                            viewBox="0 0 29 29"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M7.20837 23.875V7.20833C7.20837 6.63542 7.41237 6.14497 7.82035 5.73698C8.22834 5.32899 8.71879 5.125 9.29171 5.125H19.7084C20.2813 5.125 20.7717 5.32899 21.1797 5.73698C21.5877 6.14497 21.7917 6.63542 21.7917 7.20833V23.875L14.5 20.75L7.20837 23.875Z"
+                              fill="#F6F6F6"
+                            />
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+                </SwiperSlide>
+              );
+            })}
+          </Swiper>
+          <h2 className="text-2xl font-bold mb-4">Top Rated</h2>
+          <Swiper
+            slidesPerView={5}
+            spaceBetween={20}
+            breakpoints={{
+              1: {
+                slidesPerView: 1,
+                spaceBetween: 10,
+              },
+              768: {
+                slidesPerView: 3,
+                spaceBetween: 15,
+              },
+              1244: {
+                slidesPerView: 5,
+                spaceBetween: 20,
+              },
+            }}
+            className="mySwiper"
+          >
+            {ratedsData.results.map((movie, index) => {
+              const percentage = Math.round(movie.vote_average * 10);
+              const color = getColor(percentage);
+              const darkColor = getDarkColor(color);
+
+              return (
+                <SwiperSlide key={index}>
+                  <section>
+                    <div className="bg-[#1C1C1C] p-2 rounded min-h-96">
+                      <img
+                        src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
+                        alt={`Image ${index}`}
+                        className="rounded mb-2 w-full h-80 object-cover"
+                      ></img>
+                      <h3 className="text-lg truncate">{movie.title}</h3>
+                      <p className="text-gray-400">{movie.release_date}</p>
+                      <div className="flex items-center justify-between mt-2">
+                        <div className="flex items-center justify-center cursor-default">
+                          <div className="flex flex-col items-center">
+                            <h6 className="mb-1">Rating</h6>
+                            <svg
+                              width="40"
+                              height="40"
+                              viewBox="0 0 120 120"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <circle
+                                cx="60"
+                                cy="60"
+                                r={radius}
+                                stroke={darkColor}
+                                strokeWidth="5"
+                                fill="none"
+                              />
+                              <circle
+                                cx="60"
+                                cy="60"
+                                r={radius}
+                                stroke={color}
+                                strokeWidth="5"
+                                fill="none"
+                                strokeDasharray={circumference}
+                                strokeDashoffset={getStrokeDashoffset(
+                                  percentage
+                                )}
+                                strokeLinecap="round"
+                                transform="rotate(-90 60 60)"
+                              />
+                              <text
+                                x="50%"
+                                y="50%"
+                                textAnchor="middle"
+                                dy=".3em"
+                                className="text-3xl font-bold"
+                                fill="white"
+                              >
+                                {percentage}%
+                              </text>
+                            </svg>
+                          </div>
+                        </div>
+                        <div className="flex flex-col items-center">
+                          <h6 className="mb-1">Favorites</h6>
+                          <svg
+                            width="40"
+                            height="40"
+                            viewBox="0 0 25 25"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M23.4375 9.17969C23.4375 16.0156 13.3018 21.5488 12.8701 21.7773C12.7563 21.8385 12.6292 21.8706 12.5 21.8706C12.3708 21.8706 12.2436 21.8385 12.1299 21.7773C11.6982 21.5488 1.5625 16.0156 1.5625 9.17969C1.56431 7.57444 2.20279 6.03546 3.33788 4.90038C4.47296 3.76529 6.01194 3.12681 7.61719 3.125C9.63379 3.125 11.3994 3.99219 12.5 5.45801C13.6006 3.99219 15.3662 3.125 17.3828 3.125C18.9881 3.12681 20.527 3.76529 21.6621 4.90038C22.7972 6.03546 23.4357 7.57444 23.4375 9.17969Z"
+                              fill="#F6F6F6"
+                            />
+                          </svg>
+                        </div>
+                        <div className="flex flex-col items-center">
+                          <h6 className="mb-1">Save</h6>
+
+                          <svg
+                            className="cursor-pointer text-center"
+                            width="40"
+                            height="40"
+                            viewBox="0 0 29 29"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M7.20837 23.875V7.20833C7.20837 6.63542 7.41237 6.14497 7.82035 5.73698C8.22834 5.32899 8.71879 5.125 9.29171 5.125H19.7084C20.2813 5.125 20.7717 5.32899 21.1797 5.73698C21.5877 6.14497 21.7917 6.63542 21.7917 7.20833V23.875L14.5 20.75L7.20837 23.875Z"
+                              fill="#F6F6F6"
+                            />
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+                </SwiperSlide>
+              );
+            })}
+          </Swiper>
+          <h2 className="text-2xl font-bold mb-4">favorites</h2>
+          <Swiper
+            slidesPerView={5}
+            spaceBetween={20}
+            breakpoints={{
+              1: {
+                slidesPerView: 1,
+                spaceBetween: 10,
+              },
+              768: {
+                slidesPerView: 3,
+                spaceBetween: 15,
+              },
+              1244: {
+                slidesPerView: 5,
+                spaceBetween: 20,
+              },
+            }}
+            className="mySwiper"
+          >
+            {ratedsData.results.map((movie, index) => {
+              const percentage = Math.round(movie.vote_average * 10);
+              const color = getColor(percentage);
+              const darkColor = getDarkColor(color);
+
+              return (
+                <SwiperSlide key={index}>
+                  <section>
+                    <div className="bg-[#1C1C1C] p-2 rounded min-h-96">
+                      <img
+                        src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
+                        alt={`Image ${index}`}
+                        className="rounded mb-2 w-full h-80 object-cover"
+                      ></img>
+                      <h3 className="text-lg truncate">{movie.title}</h3>
+                      <p className="text-gray-400">{movie.release_date}</p>
+                      <div className="flex items-center justify-between mt-2">
+                        <div className="flex items-center justify-center cursor-default">
+                          <div className="flex flex-col items-center">
+                            <h6 className="mb-1">Rating</h6>
+                            <svg
+                              width="40"
+                              height="40"
+                              viewBox="0 0 120 120"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <circle
+                                cx="60"
+                                cy="60"
+                                r={radius}
+                                stroke={darkColor}
+                                strokeWidth="5"
+                                fill="none"
+                              />
+                              <circle
+                                cx="60"
+                                cy="60"
+                                r={radius}
+                                stroke={color}
+                                strokeWidth="5"
+                                fill="none"
+                                strokeDasharray={circumference}
+                                strokeDashoffset={getStrokeDashoffset(
+                                  percentage
+                                )}
+                                strokeLinecap="round"
+                                transform="rotate(-90 60 60)"
+                              />
+                              <text
+                                x="50%"
+                                y="50%"
+                                textAnchor="middle"
+                                dy=".3em"
+                                className="text-3xl font-bold"
+                                fill="white"
+                              >
+                                {percentage}%
+                              </text>
+                            </svg>
+                          </div>
+                        </div>
+                        <div className="flex flex-col items-center">
+                          <h6 className="mb-1">Favorites</h6>
+                          <svg
+                            width="40"
+                            height="40"
+                            viewBox="0 0 25 25"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M23.4375 9.17969C23.4375 16.0156 13.3018 21.5488 12.8701 21.7773C12.7563 21.8385 12.6292 21.8706 12.5 21.8706C12.3708 21.8706 12.2436 21.8385 12.1299 21.7773C11.6982 21.5488 1.5625 16.0156 1.5625 9.17969C1.56431 7.57444 2.20279 6.03546 3.33788 4.90038C4.47296 3.76529 6.01194 3.12681 7.61719 3.125C9.63379 3.125 11.3994 3.99219 12.5 5.45801C13.6006 3.99219 15.3662 3.125 17.3828 3.125C18.9881 3.12681 20.527 3.76529 21.6621 4.90038C22.7972 6.03546 23.4357 7.57444 23.4375 9.17969Z"
+                              fill="#F6F6F6"
+                            />
+                          </svg>
+                        </div>
+                        <div className="flex flex-col items-center">
+                          <h6 className="mb-1">Save</h6>
+
+                          <svg
+                            className="cursor-pointer text-center"
+                            width="40"
+                            height="40"
+                            viewBox="0 0 29 29"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M7.20837 23.875V7.20833C7.20837 6.63542 7.41237 6.14497 7.82035 5.73698C8.22834 5.32899 8.71879 5.125 9.29171 5.125H19.7084C20.2813 5.125 20.7717 5.32899 21.1797 5.73698C21.5877 6.14497 21.7917 6.63542 21.7917 7.20833V23.875L14.5 20.75L7.20837 23.875Z"
+                              fill="#F6F6F6"
+                            />
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+                </SwiperSlide>
+              );
+            })}
+          </Swiper>
         </main>
       </div>
     </>
