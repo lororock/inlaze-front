@@ -76,8 +76,8 @@ function Modal({ isOpen, onClose }) {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center z-30 ">
-      <div className="w-[90%] bg-opacity-50 backdrop-blur-sm p-8 rounded-lg border border-white shadow-lg flex flex-col md:flex-row">
-        <div className="flex flex-col items-center justify-around h-96 md:h-auto md:w-2/3 p-4 text-white">
+      <div className="w-[90%] bg-opacity-50 backdrop-blur-sm p-2 rounded-lg border border-white shadow-lg flex flex-col sm:p-8 md:flex-row">
+        <div className="flex flex-col mt-10 gap-2 items-center justify-around h-96 ms:mt-0 sm:gap-4 md:h-auto md:w-2/3 p-4 text-white lg:gap-8">
           <div className="bg-gray-800 rounded-md">
             <button
               onClick={() => logIn(false)}
@@ -122,6 +122,14 @@ function Modal({ isOpen, onClose }) {
                   className="absolute right-2 top-1/2 transform -translate-y-1/2"
                 >
                   {eyeIcon}
+                </button>
+              </div>
+              <div className="flex flex-col-reverse justify-between items-center sm:flex-row md:justify-center">
+                <p className={`${isLogIn ? "" : "hidden"} text-center cursor-pointer`}>
+                  I dont remember my password
+                </p>
+                <button className="block bg-yellow-500 text-center py-2 px-6 rounded-md md:hidden">
+                  iniciar
                 </button>
               </div>
             </form>
