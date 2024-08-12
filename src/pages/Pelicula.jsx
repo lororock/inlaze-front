@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getMovie } from "../services/getData";
+import PeliculaBanner from "../components/PeliculaBanner";
 
 function Pelicula() {
   const { id } = useParams();
@@ -13,7 +14,6 @@ function Pelicula() {
         const data = await getMovie(id);
         setMovieData(data);
         console.log(data);
-        
       } catch (error) {
         console.error("Error al obtener los datos de la película:", error);
         setError(error);
@@ -30,16 +30,11 @@ function Pelicula() {
     return <div>Cargando...</div>;
   }
 
-    return (
-      <>
-        <div className="flex items-center justify-center min-h-screen bg-gray-100">
-          <h1 className="text-4xl font-bold text-blue-500">
-            Hello, Tailwind CSS in React!
-          </h1>
-        </div>
-      </>
-    );
-  }
-  
-  export default Pelicula;
-  
+  return (
+    <>
+      <PeliculaBanner id={id} />
+    </>
+  );
+}
+
+export default Pelicula;

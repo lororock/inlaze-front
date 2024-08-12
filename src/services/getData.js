@@ -1,9 +1,21 @@
 import axiosInstance from "./axiosIntance";
 
-
 export const getMovie = async (movieId) => {
   try {
     const response = await axiosInstance.get(`movie/${movieId}`);
+    const movieData = response.data;
+    return movieData;
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+};
+
+export const getCredits = async (movieId) => {
+  try {
+    const response = await axiosInstance.get(
+      `movie/${movieId}/credits?language=en-US`
+    );
     const movieData = response.data;
     return movieData;
   } catch (error) {
@@ -77,8 +89,6 @@ export const getTopRated = async () => {
   }
 };
 
-
-
 export const getGenders = async () => {
   try {
     const response = await axiosInstance.get("genre/movie/list?language=en");
@@ -86,6 +96,6 @@ export const getGenders = async () => {
     return data;
   } catch (error) {
     console.error("Error:", error);
-    throw error; // Rechazar la promesa si ocurre un error
+    throw error;
   }
 };
