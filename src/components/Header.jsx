@@ -225,7 +225,11 @@ function Header() {
               <div className="block md:hidden">
                 <button
                   onClick={NavOpen}
-                  className={`rounded ${isNavOpen ? "bg-gray-100  text-gray-600" : "bg-black  text-gray-100"} p-2 transition `}
+                  className={`rounded ${
+                    isNavOpen
+                      ? "bg-gray-100  text-gray-600"
+                      : "bg-black  text-gray-100"
+                  } p-2 transition `}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -247,7 +251,7 @@ function Header() {
           </div>
         </div>
 
-        <div className={`${isNavOpen ? "block" : "hidden"}`} id="mobile-menu">
+        <div className={`${isNavOpen ? "block" : "hidden"} md:hidden`} id="mobile-menu">
           <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3">
             <div
               onClick={openModal}
