@@ -4,8 +4,10 @@ import Modal from "./Modal";
 
 function Header() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isNavOpen, setIsNavOpen] = useState(false);
 
   const openModal = () => setIsModalOpen(true);
+  const NavOpen = () => setIsNavOpen(!isNavOpen);
   const closeModal = () => setIsModalOpen(false);
   return (
     <>
@@ -221,7 +223,10 @@ function Header() {
               </div>
 
               <div className="block md:hidden">
-                <button className="rounded bg-gray-100 p-2 text-gray-600 transition hover:text-gray-600/75">
+                <button
+                  onClick={NavOpen}
+                  className={`rounded ${isNavOpen ? "bg-gray-100  text-gray-600" : "bg-black  text-gray-100"} p-2 transition `}
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-5 w-5"
@@ -239,6 +244,59 @@ function Header() {
                 </button>
               </div>
             </div>
+          </div>
+        </div>
+
+        <div className={`${isNavOpen ? "block" : "hidden"}`} id="mobile-menu">
+          <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3">
+            <div
+              onClick={openModal}
+              className="block text-gray-300 hover:bg-gray-700 hover:text-white sm:hidden rounded-md px-3 py-2 text-base font-medium"
+            >
+              Sing Up
+            </div>
+
+            <a
+              href="#profile"
+              className="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
+            >
+              Popular
+            </a>
+
+            <a
+              href="#cv"
+              className="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
+            >
+              Now Playing
+            </a>
+
+            <a
+              href="#projects"
+              className="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
+            >
+              Upcoming
+            </a>
+
+            <a
+              href="#footer_contactos"
+              className="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
+            >
+              Top Rated
+            </a>
+
+            <a
+              href="#footer_contactos"
+              className="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
+            >
+              Favorites
+            </a>
+
+            <a
+              href="#footer_contactos"
+              className="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
+            >
+              Saved
+            </a>
           </div>
         </div>
       </header>
