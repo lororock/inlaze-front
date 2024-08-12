@@ -1,11 +1,8 @@
 import { Swiper, SwiperSlide } from "swiper/react";
+import Filters from "./Filters";
 
 import "swiper/css";
-import "swiper/css/pagination";
 
-import "./styles.css";
-
-import Filters from "./Filters";
 const percentage = 39;
 
 function Categorias() {
@@ -46,9 +43,20 @@ function Categorias() {
           <Swiper
             slidesPerView={5}
             spaceBetween={20}
-            pagination={{
+            breakpoints={{
+              1: {
+                slidesPerView: 1,
+                spaceBetween: 10,
+              },
+              768: {
+                slidesPerView: 3,
+                spaceBetween: 15,
+              },
+              1244: {
+                slidesPerView: 5,
+                spaceBetween: 20,
+              },
             }}
-            modules={[]}
             className="mySwiper"
           >
             <SwiperSlide>
@@ -216,7 +224,8 @@ function Categorias() {
                   </div>
                 </div>
               </section>
-            </SwiperSlide><SwiperSlide>
+            </SwiperSlide>
+            <SwiperSlide>
               <section>
                 <div className="bg-[#1C1C1C] p-2 rounded">
                   <img
@@ -298,7 +307,8 @@ function Categorias() {
                   </div>
                 </div>
               </section>
-            </SwiperSlide><SwiperSlide>
+            </SwiperSlide>
+            <SwiperSlide>
               <section>
                 <div className="bg-[#1C1C1C] p-2 rounded">
                   <img
@@ -380,7 +390,8 @@ function Categorias() {
                   </div>
                 </div>
               </section>
-            </SwiperSlide><SwiperSlide>
+            </SwiperSlide>
+            <SwiperSlide>
               <section>
                 <div className="bg-[#1C1C1C] p-2 rounded">
                   <img
@@ -462,7 +473,8 @@ function Categorias() {
                   </div>
                 </div>
               </section>
-            </SwiperSlide><SwiperSlide>
+            </SwiperSlide>
+            <SwiperSlide>
               <section>
                 <div className="bg-[#1C1C1C] p-2 rounded">
                   <img
@@ -544,7 +556,8 @@ function Categorias() {
                   </div>
                 </div>
               </section>
-            </SwiperSlide><SwiperSlide>
+            </SwiperSlide>
+            <SwiperSlide>
               <section>
                 <div className="bg-[#1C1C1C] p-2 rounded">
                   <img
