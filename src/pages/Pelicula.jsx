@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { getMovie } from "../services/getData";
 import PeliculaBanner from "../components/PeliculaBanner";
 import Cast from "../components/Cast";
-import Recommnedation from "../components/Recommendatios";
+import Recommnedations from "../components/Recommendations";
 
 function Pelicula() {
   const { id } = useParams();
@@ -35,7 +35,7 @@ function Pelicula() {
     <>
       <PeliculaBanner id={id} />
       <Cast id={id} />
-      <Recommnedation id={id} />
+      <Recommnedations id={id} />
     </>
   );
 }
