@@ -33,7 +33,7 @@ function Recommnedation({ id }) {
     <>
       <section>
         <div className="bg-[#1C1C1C] p-2  min-h-96">
-        <h2 className="text-4xl  font-bold text-white my-5">Recommendations</h2>
+        <h2 className="text-4xl font-bold text-white my-5 truncate">Recommendations</h2>
           <Swiper
             slidesPerView={5}
             spaceBetween={20}

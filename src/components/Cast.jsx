@@ -28,8 +28,8 @@ function Cast({ id }) {
     return <div>Cargando...</div>;
   }
   return (
-    <div className="flex">
-      <main className="w-3/4 p-4 text-white space-y-8 bg-[#424242]">
+    <div className="block sm:flex">
+      <main className="w-full sm:w-3/4 p-4 text-white space-y-8 bg-[#424242]">
         <div className="pb-20">
           <h2 className="text-4xl mb-4 font-bold text-white">CAST</h2>
           <div className="flex flex-wrap justify-between  gap-4">
@@ -70,7 +70,7 @@ function Cast({ id }) {
           </p>
         </div>
       </main>
-      <aside className="text-white w-1/4 p-4 bg-[#303030] h-auto">
+      <aside className="text-white w-full p-4 bg-[#303030] h-auto flex flex-wrap justify-between gap-4 sm:block sm:w-1/4">
         {creditsData.crew.slice(0, 6).map((cast, index) => {
           return (
             <div key={index} className="mb-5">

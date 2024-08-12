@@ -77,8 +77,7 @@ function Modal({ isOpen, onClose }) {
   return (
     <div className="fixed inset-0 flex items-center justify-center z-30 ">
       <div className="w-[90%] bg-opacity-50 backdrop-blur-sm p-8 rounded-lg border border-white shadow-lg flex flex-col md:flex-row">
-        {/* Columna Izquierda */}
-        <div className="flex flex-col items-center justify-around w-full md:w-2/3 p-4 text-white">
+        <div className="flex flex-col items-center justify-around h-96 md:h-auto md:w-2/3 p-4 text-white">
           <div className="bg-gray-800 rounded-md">
             <button
               onClick={() => logIn(false)}
@@ -141,8 +140,7 @@ function Modal({ isOpen, onClose }) {
           </p>
         </div>
 
-        {/* Columna Derecha */}
-        <div className="bg-gray-800 rounded-r-xl text-white flex flex-col items-center justify-center w-full md:w-1/3 p-4">
+        <div className="hidden bg-gray-800 rounded-r-xl text-white md:flex flex-col items-center justify-center w-full md:w-1/3 p-4">
           <h2 className="text-3xl font-bold mb-4 text-center">
             Welcome to Quikbet Movies!
           </h2>

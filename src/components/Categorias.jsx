@@ -43,9 +43,9 @@ function Categorias() {
   }
   return (
     <>
-      <div className="flex bg-[#262626]">
+      <div className="block sm:flex bg-[#262626]">
         <Filters />
-        <main className="w-3/4 p-4 text-white space-y-8 bg-[#424242]">
+        <main className="w-full sm:w-3/4 p-4 text-white space-y-8 bg-[#424242]">
           <h2 className="text-2xl font-bold mb-4">Popular</h2>
           <Categoria moviesData={popularsData} />
 

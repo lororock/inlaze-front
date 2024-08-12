@@ -91,17 +91,17 @@ function PeliculaBanner({ id }) {
                   </div>
                 </div>
               </div>
-              <div className="text-white max-w-3xl">
-                <h2 className="max-w-lg text-white/90 md:mt-6 md:block  md:leading-relaxed text-6xl ">
+              <div className="text-white max-w-3xl flex flex-col items-center gap-4 lg:gap-0 lg:items-stretch">
+                <h2 className="max-w-lg  text-white/90 md:mt-6 md:block md:leading-relaxed text-6xl ">
                   {movieData.title}
                 </h2>
-                <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center justify-between gap-8 mb-6">
                   <p>{movieData.release_date}</p>
                   <p>{movieData.runtime}minutes</p>
                 </div>
                 <h3>Overview:</h3>
                 <p>{movieData.overview}</p>
-                <div className="text-white flex items-center justify-between  mb-8 cursor-default">
+                <div className="text-white flex items-center justify-between flex-col gap-4 lg:flex-row mb-8 cursor-default">
                   <div className="flex items-center">
                     <svg
                       width="120"
@@ -208,7 +208,7 @@ function PeliculaBanner({ id }) {
           </div>
         </div>
       </section>
-      <div className="h-10 bg-black">s</div>
+      <div className="h-10 bg-black"></div>
     </>
   );
 }

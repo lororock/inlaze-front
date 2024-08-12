@@ -81,18 +81,18 @@ function MainBanner() {
                   className="w-full h-full object-cover"
                 />
                 <div className="bg-black/30 h-full">
-                  <div className="absolute bottom-0 left-0 w-full pt-4 flex justify-around items-end bg-gradient-to-b from-transparent to-black">
+                  <div className="absolute bottom-0 left-0 w-full pt-4 flex justify-center lg:justify-around items-end bg-gradient-to-b from-transparent to-black">
                     <div>
                       <div className="w-2/4">
                         <div className="ltr:sm:text-left rtl:sm:text-right">
-                          <h2 className="hidden max-w-lg text-white/90 md:mt-6 md:block md:text-lg md:leading-relaxed lg:text-6xl mb-6">
+                          <h2 className="hidden max-w-lg text-white/90 md:mt-6 lg:block md:leading-relaxed lg:text-6xl mb-6">
                             {movie.title}
                           </h2>
                         </div>
-                        <p className="text-white text-xl mb-8">
+                        <p className="hidden text-white text-xl mb-8 lg:block">
                           {movie.overview}
                         </p>
-                        <div className="flex justify-around">
+                        <div className="hidden lg:flex lg:justify-around">
                           <button className="text-white hover:text-yellow-400 cursor-pointer">
                             Trama
                           </button>
@@ -108,7 +108,7 @@ function MainBanner() {
                         </div>
                       </div>
                     </div>
-                    <div className="mx-5 text-center">
+                    <div className="mx-5 mb-10 text-center lg:mb-0">
                       <div className="flex items-center justify-center mb-8 cursor-default">
                         <svg
                           width="120"
@@ -193,6 +193,12 @@ function MainBanner() {
                         </svg>
                       </div>
                     </div>
+                  </div>
+                  <div className="absolute top-10 w-full pt-4 flex justify-center lg:hidden">
+                    <div className="ltr:sm:text-left rtl:sm:text-right"></div>
+                    <h2 className="max-w-lg text-white/90 truncate md:mt-6 lg:block md:leading-relaxed text-3xl mb-6">
+                      {movie.title}
+                    </h2>
                   </div>
                 </div>
               </section>

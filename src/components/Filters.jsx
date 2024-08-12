@@ -1,7 +1,7 @@
 function Filters() {
   return (
     <>
-      <aside className="text-white w-1/4 p-4 bg-[#262626] h-screen">
+      <aside className="text-white w-full p-4 bg-[#303030] h-auto flex flex-wrap justify-between sm:block sm:w-1/4">
         <h2 className="font-bold mb-2">Search</h2>
         <div className="mb-4 w-full p-2 flex items-center justify-around rounded-t-md bg-[#1C1C1C] border-b-[1px] text-white">
           <input
@@ -29,7 +29,7 @@ function Filters() {
             </defs>
           </svg>
         </div>
-        <div className="mb-4">
+        <div className="mb-4 w-full">
           <h2 className="font-bold mb-2">Sort By</h2>
           <select className="w-full p-2 rounded bg-[#1C1C1C] text-white">
             <option selected disabled>
@@ -44,7 +44,7 @@ function Filters() {
             <option>Rating Date Decending</option>
           </select>
         </div>
-        <div className="mb-4">
+        <div className="mb-4 w-full">
           <h2 className="font-bold mb-2">Genres</h2>
           <select className="w-full p-2 rounded bg-[#1C1C1C] text-white">
             <option value="28" selected disabled>
@@ -71,7 +71,7 @@ function Filters() {
             <option value="37">Western</option>
           </select>
         </div>
-        <div>
+        <div className="w-full">
           <h2 className="font-bold mb-2">User Score</h2>
           <input
             type="range"
