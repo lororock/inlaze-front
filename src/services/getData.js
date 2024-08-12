@@ -26,6 +26,19 @@ export const getMovies = async () => {
   }
 };
 
+export const getPopulars = async () => {
+  try {
+    const response = await axiosInstance.get(
+      "movie/popular?language=en-US&page=1"
+    );
+    const { data } = response;
+    return data;
+  } catch (error) {
+    console.error("Error:", error.message);
+    throw error;
+  }
+};
+
 export const getGenders = async () => {
   try {
     const response = await axiosInstance.get("genre/movie/list?language=en");
