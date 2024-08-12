@@ -35,7 +35,7 @@ function Pelicula() {
     <>
       <PeliculaBanner id={id} />
       <Cast id={id} />
-      <Recommnedation />
+      <Recommnedation id={id} />
     </>
   );
 }

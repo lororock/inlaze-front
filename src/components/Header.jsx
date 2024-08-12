@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import Modal from "./Modal";
 
 function Header() {
@@ -12,7 +13,7 @@ function Header() {
         <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
             <div className="md:flex md:items-center md:gap-12">
-              <a className="block md:hidden lg:block text-teal-600" href="#">
+              <Link className="block md:hidden lg:block text-teal-600" to="/">
                 <span className="sr-only">Home</span>
                 <svg
                   width="142"
@@ -122,7 +123,7 @@ function Header() {
                     </filter>
                   </defs>
                 </svg>
-              </a>
+              </Link>
             </div>
 
             <div className="hidden md:block">

@@ -24,6 +24,19 @@ export const getCredits = async (movieId) => {
   }
 };
 
+export const getRecommendations = async (movieId) => {
+  try {
+    const response = await axiosInstance.get(
+      `movie/${movieId}/recommendations?language=en-US&page=1`
+    );
+    const movieData = response.data;
+    return movieData;
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+};
+
 export const getMovies = async () => {
   try {
     const response = await axiosInstance.get(
