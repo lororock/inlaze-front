@@ -11,7 +11,6 @@ function PeliculaBanner({ id }) {
       try {
         const data = await getMovie(id);
         setMovieData(data);
-        console.log(data);
       } catch (error) {
         console.error("Error al obtener los datos de la película:", error);
         setError(error);

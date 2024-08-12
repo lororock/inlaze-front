@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getMovie } from "../services/getData";
 import PeliculaBanner from "../components/PeliculaBanner";
+import Cast from "../components/Cast";
+import Recommnedation from "../components/Recommendatios";
 
 function Pelicula() {
   const { id } = useParams();
@@ -13,7 +15,6 @@ function Pelicula() {
       try {
         const data = await getMovie(id);
         setMovieData(data);
-        console.log(data);
       } catch (error) {
         console.error("Error al obtener los datos de la película:", error);
         setError(error);
@@ -33,6 +34,8 @@ function Pelicula() {
   return (
     <>
       <PeliculaBanner id={id} />
+      <Cast id={id} />
+      <Recommnedation />
     </>
   );
 }

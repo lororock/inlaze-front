@@ -41,7 +41,6 @@ function MainBanner() {
     const fetchMovieData = async () => {
       try {
         const data = await getMovies();
-        console.log(data);
         setMoviesData(data);
       } catch (error) {
         console.error("Error al obtener los datos de la película:", error);
@@ -78,7 +77,7 @@ function MainBanner() {
               <section className="overflow-hidden h-[660px] bg-cover bg-top bg-no-repeat">
                 <img
                   src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
-                  alt={`Image ${index}`}
+                  alt={`Image ${movie.title}`}
                   className="w-full h-full object-cover"
                 />
                 <div className="bg-black/30 h-full">
