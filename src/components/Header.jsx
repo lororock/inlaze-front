@@ -1,4 +1,11 @@
+import { useState } from "react";
+import Modal from "./Modal";
+
 function Header() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
   return (
     <>
       <header className="bg-black">
@@ -193,7 +200,10 @@ function Header() {
                   />
                 </svg>
 
-                <div className="hidden sm:flex cursor-pointer">
+                <div
+                  onClick={openModal}
+                  className="hidden sm:flex cursor-pointer"
+                >
                   <svg
                     width="25"
                     height="25"
@@ -231,6 +241,7 @@ function Header() {
           </div>
         </div>
       </header>
+      <Modal isOpen={isModalOpen} onClose={closeModal} />
     </>
   );
 }
