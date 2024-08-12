@@ -52,16 +52,21 @@ function Categorias() {
           <h2 className="text-2xl font-bold mb-4">Now Playing</h2>
           <Categoria moviesData={playingsData} />
 
-
           <h2 className="text-2xl font-bold mb-4">Upcoming</h2>
           <Categoria moviesData={comingsData} />
-          
+
           <h2 className="text-2xl font-bold mb-4">Top Rated</h2>
           <Categoria moviesData={ratedsData} />
-          
+
           <h2 className="text-2xl font-bold mb-4">favorites</h2>
           <Categoria moviesData={ratedsData} />
-          
+          <section>
+            <div className="bg-[#1C1C1C] p-2 rounded min-h-96">
+              <div className="rounded mb-2 w-full h-80 object-cover inset-0 flex items-center justify-center">
+                Iniciar sesión para ver favoritos
+              </div>
+            </div>
+          </section>
         </main>
       </div>
     </>
