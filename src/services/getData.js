@@ -1,8 +1,7 @@
 import axiosInstance from "./axiosIntance";
 
-const movieId = "106646";
 
-export const getMovie = async () => {
+export const getMovie = async (movieId) => {
   try {
     const response = await axiosInstance.get(`movie/${movieId}`);
     const movieData = response.data;

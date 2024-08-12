@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import PropTypes from "prop-types";
 
@@ -59,11 +60,14 @@ function Categoria({ moviesData }) {
             <SwiperSlide key={index}>
               <section>
                 <div className="bg-[#1C1C1C] p-2 rounded min-h-96">
-                  <img
-                    src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
-                    alt={`Image ${index}`}
-                    className="rounded mb-2 w-full h-80 object-cover"
-                  ></img>
+                  <Link to={`/pelicula/${movie.id}`}>
+                    <img
+                      src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
+                      alt={`Image ${index}`}
+                      className="rounded mb-2 w-full h-80 object-cover"
+                    ></img>
+                  </Link>
+
                   <h3 className="text-lg truncate">{movie.title}</h3>
                   <p className="text-gray-400">{movie.release_date}</p>
                   <div className="flex items-center justify-between mt-2">
