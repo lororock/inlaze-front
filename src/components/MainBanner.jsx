@@ -45,7 +45,7 @@ function MainBanner() {
         className="mySwiper"
       >
         <SwiperSlide>
-          <section className="overflow-hidden h-96 bg-[url(https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?q=80&w=2670&auto=format&fit=crop)] bg-cover bg-top bg-no-repeat">
+          <section className="overflow-hidden h-96 bg-[url(https://image.tmdb.org/t/p/original/7Nwnmyzrtd0FkcRyPqmdzTPppQa.jpg&quot)] bg-cover bg-top bg-no-repeat">
             <div className="bg-black/30 h-full">
               <div className="absolute bottom-0 left-0 w-full pt-4 flex justify-around items-end bg-gradient-to-b from-transparent to-black">
                 <div className="">
@@ -118,6 +118,7 @@ function MainBanner() {
                   </div>
 
                   <div className="flex space-x-16">
+                    
                     <svg
                       className="cursor-pointer"
                       width="24"
@@ -159,6 +160,7 @@ function MainBanner() {
                         fill="#F6F6F6"
                       />
                     </svg>
+
                   </div>
                 </div>
               </div>
