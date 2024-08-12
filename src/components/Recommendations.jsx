@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { getRecommendations } from "../services/getData";
+import Loaging from "./Loaging";
+import PeliculaNotFind from "./PeliculaNotFind";
 
 function Recommnedation({ id }) {
   const [recommendationData, setRecommendationData] = useState(null);
@@ -23,11 +25,11 @@ function Recommnedation({ id }) {
     fetchMovieData();
   }, [id]);
   if (error) {
-    return <div>Error al cargar los datos de la película.</div>;
+    return <PeliculaNotFind />
   }
 
   if (!recommendationData) {
-    return <div>Cargando...</div>;
+    return <Loaging />
   }
   return (
     <>

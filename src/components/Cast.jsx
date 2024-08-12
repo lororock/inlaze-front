@@ -1,6 +1,8 @@
 import PropTypes from "prop-types";
 import { useState, useEffect } from "react";
 import { getCredits } from "../services/getData";
+import Loaging from "./Loaging";
+import PeliculaNotFind from "./PeliculaNotFind";
 
 function Cast({ id }) {
   const [creditsData, setCreditsData] = useState(null);
@@ -21,11 +23,11 @@ function Cast({ id }) {
     fetchMovieData();
   }, [id]);
   if (error) {
-    return <div>Error al cargar los datos de la película.</div>;
+    return <PeliculaNotFind />
   }
 
   if (!creditsData) {
-    return <div>Cargando...</div>;
+    return <Loaging />;
   }
   return (
     <div className="block sm:flex">

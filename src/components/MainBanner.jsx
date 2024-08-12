@@ -6,6 +6,8 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "./styles.css";
 import { Pagination } from "swiper/modules";
+import Loaging from "./Loaging";
+import PeliculaNotFind from "./PeliculaNotFind";
 
 function MainBanner() {
   const radius = 50;
@@ -52,11 +54,11 @@ function MainBanner() {
   }, []);
 
   if (error) {
-    return <div>Error al cargar los datos de la película.</div>;
+    return <PeliculaNotFind />
   }
 
   if (!moviesData) {
-    return <div>Cargando...</div>;
+    return <Loaging />
   }
 
   return (

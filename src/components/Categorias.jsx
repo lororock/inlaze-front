@@ -6,6 +6,8 @@ import { getTopRated } from "../services/getData";
 
 import Filters from "./Filters";
 import Categoria from "./Categoria";
+import Loaging from "./Loaging";
+import PeliculaNotFind from "./PeliculaNotFind";
 
 function Categorias() {
   const [popularsData, setPopularsData] = useState(null);
@@ -35,11 +37,11 @@ function Categorias() {
     fetchMovieData();
   }, []);
   if (error) {
-    return <div>Error al cargar los datos de la película.</div>;
+    return <PeliculaNotFind />
   }
 
   if (!popularsData) {
-    return <div>Cargando...</div>;
+    return <Loaging />
   }
   return (
     <>

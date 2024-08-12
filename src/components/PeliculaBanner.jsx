@@ -1,6 +1,8 @@
 import PropTypes from "prop-types";
 import { useState, useEffect } from "react";
 import { getMovie } from "../services/getData";
+import Loaging from "./Loaging";
+import PeliculaNotFind from "./PeliculaNotFind";
 
 function PeliculaBanner({ id }) {
   const [movieData, setMovieData] = useState(null);
@@ -20,11 +22,11 @@ function PeliculaBanner({ id }) {
     fetchMovieData();
   }, [id]);
   if (error) {
-    return <div>Error al cargar los datos de la película.</div>;
+    return <PeliculaNotFind />
   }
 
   if (!movieData) {
-    return <div>Cargando...</div>;
+    return <Loaging />
   }
   const radius = 50;
   const circumference = 2 * Math.PI * radius;
