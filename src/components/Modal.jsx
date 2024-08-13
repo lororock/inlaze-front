@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { postRegisterUser } from "../services/userAuth";
 import Swal from "sweetalert2";
 
 import PropTypes from "prop-types";
@@ -6,9 +7,14 @@ import imgLogIn from "../assets/LogIn.png";
 import imgSingUp from "../assets/SignUp.png";
 
 function Modal({ isOpen, onClose }) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [isLogIn, setIsLogIn] = useState(false);
   const [isSignUp, setIsSignUp] = useState(false);
+  const [isRegister, setIsRegister] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
+
+  const [error, setError] = useState(null);
 
   const logIn = (e) => setIsLogIn(e);
   const signUp = () => setIsSignUp(true);
@@ -68,12 +74,20 @@ function Modal({ isOpen, onClose }) {
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+    try {
+      const userData = { email, password };
+      const data = await postRegisterUser(userData);
+      setIsRegister(data);
+      Swal.fire("Success", "User registered successfully", "success");
+    } catch (e) {
+      setError("aqui el ", error, e);
+      Swal.fire("Error", "Failed to register user", "error", isRegister);
+    }
     console.log("Form submitted");
   };
 
   if (!isOpen) return null;
-
   return (
     <div className="fixed inset-0 flex items-center justify-center z-30 ">
       <div className="w-[90%] bg-opacity-50 backdrop-blur-sm p-2 rounded-lg border border-white shadow-lg flex flex-col sm:p-8 md:flex-row">
@@ -104,6 +118,8 @@ function Modal({ isOpen, onClose }) {
             }`}</p>
             <form>
               <input
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 placeholder="Email"
                 type="text"
                 className="bg-white w-full text-black py-2 my-2 px-6 rounded-md flex items-center"
@@ -111,6 +127,8 @@ function Modal({ isOpen, onClose }) {
 
               <div className="relative w-full">
                 <input
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   placeholder="Password"
                   type={showPassword ? "text" : "password"}
                   className="bg-white w-full text-black py-2 my-2 px-6 rounded-md flex items-center"
@@ -125,7 +143,11 @@ function Modal({ isOpen, onClose }) {
                 </button>
               </div>
               <div className="flex flex-col-reverse justify-between items-center sm:flex-row md:justify-center">
-                <p className={`${isLogIn ? "" : "hidden"} text-center cursor-pointer`}>
+                <p
+                  className={`${
+                    isLogIn ? "" : "hidden"
+                  } text-center cursor-pointer`}
+                >
                   I dont remember my password
                 </p>
                 <button className="block bg-yellow-500 text-center py-2 px-6 rounded-md md:hidden">
