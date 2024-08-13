@@ -15,9 +15,7 @@ function Recommnedation({ id }) {
       try {
         const data = await getRecommendations(id);
         setRecommendationData(data);
-        console.log(data);
       } catch (error) {
-        console.error("Error al obtener los datos de la película:", error);
         setError(error);
       }
     };

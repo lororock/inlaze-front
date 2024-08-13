@@ -33,7 +33,6 @@ function Categorias() {
         setComingsData(data3);
         setRatesData(data4);
       } catch (error) {
-        console.error("Error al obtener los datos de la película:", error);
         setError(error);
       }
     };

@@ -16,10 +16,9 @@ function Index() {
       localStorage.setItem("authToken", token);
       const fetchMovieData = async () => {
         try {
-          const data = await postConfirmToken(token);
-          console.log(data);
+          await postConfirmToken(token);
         } catch (error) {
-          console.error("Error al obtener los datos de la película:", error);
+          return error
         }
       };
   

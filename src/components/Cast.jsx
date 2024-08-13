@@ -13,9 +13,7 @@ function Cast({ id }) {
       try {
         const data = await getCredits(id);
         setCreditsData(data);
-        console.log(data);
       } catch (error) {
-        console.error("Error al obtener los datos de la película:", error);
         setError(error);
       }
     };

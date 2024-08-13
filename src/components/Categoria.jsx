@@ -34,11 +34,9 @@ function Categoria({ moviesData }) {
 
   const addfavorite = async (id) => {
     try {
-      const data = await putFavorite(id);
-      console.log(data);
-      
-    } catch (e) {
-      console.log(e);
+      await putFavorite(id);
+    } catch (error) {
+      return error
     }
   };
   return (
