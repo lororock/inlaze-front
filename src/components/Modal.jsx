@@ -92,7 +92,8 @@ function Modal({ isOpen, onClose }) {
     try {
       const userData = { email, password };
       const data = await postLoginUser(userData);
-      setIsRegister(data);
+      console.log('LC',data.token);
+      localStorage.setItem("authToken", data.token);
       Swal.fire("Success", "User registered successfully", "success");
     } catch (e) {
       setError("aqui el ", error, e);

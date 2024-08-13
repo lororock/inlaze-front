@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import PropTypes from "prop-types";
+import { putFavorite } from "../services/userAuth";
 
 import "swiper/css";
 
@@ -29,6 +30,17 @@ function Categoria({ moviesData }) {
       default:
         return "gray";
     }
+  };
+
+  const addfavorite = async (id) => {
+    try {
+      const data = await putFavorite(id);
+      console.log(data);
+      
+    } catch (e) {
+      console.log(e);
+    }
+    console.log("Form submitted");
   };
   return (
     <>
@@ -63,7 +75,7 @@ function Categoria({ moviesData }) {
                   <Link to={`/pelicula/${movie.id}`}>
                     <img
                       src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
-                      alt={`Image ${index}`}
+                      alt={`Image ${movie.title}`}
                       className="rounded mb-2 w-full h-80 object-cover"
                     ></img>
                   </Link>
@@ -116,6 +128,7 @@ function Categoria({ moviesData }) {
                     <div className="flex flex-col items-center">
                       <h6 className="mb-1">Favorites</h6>
                       <svg
+                        onClick={() => addfavorite(movie.id)}
                         width="40"
                         height="40"
                         viewBox="0 0 25 25"
