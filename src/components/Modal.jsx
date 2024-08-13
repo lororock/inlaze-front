@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { postRegisterUser } from "../services/userAuth";
+import { postRegisterUser, postLoginUser } from "../services/userAuth";
 import Swal from "sweetalert2";
 
 import PropTypes from "prop-types";
@@ -38,7 +38,7 @@ function Modal({ isOpen, onClose }) {
     if (event.key === "Enter") {
       event.preventDefault();
       if (isLogIn) {
-        handleSubmit();
+        loginSubmit();
         const Toast = Swal.mixin({
           toast: true,
           position: "top-end",
@@ -55,6 +55,7 @@ function Modal({ isOpen, onClose }) {
           title: "Login in successfully",
         });
       } else if (!isLogIn) {
+        registerSubmit();
         const Toast = Swal.mixin({
           toast: true,
           position: "top-end",
@@ -74,7 +75,7 @@ function Modal({ isOpen, onClose }) {
     }
   };
 
-  const handleSubmit = async () => {
+  const registerSubmit = async () => {
     try {
       const userData = { email, password };
       const data = await postRegisterUser(userData);
@@ -83,6 +84,19 @@ function Modal({ isOpen, onClose }) {
     } catch (e) {
       setError("aqui el ", error, e);
       Swal.fire("Error", "Failed to register user", "error", isRegister);
+    }
+    console.log("Form submitted");
+  };
+
+  const loginSubmit = async () => {
+    try {
+      const userData = { email, password };
+      const data = await postLoginUser(userData);
+      setIsRegister(data);
+      Swal.fire("Success", "User registered successfully", "success");
+    } catch (e) {
+      setError("aqui el ", error, e);
+      Swal.fire("Error", "Failed to login user", "error", isRegister);
     }
     console.log("Form submitted");
   };
@@ -150,8 +164,12 @@ function Modal({ isOpen, onClose }) {
                 >
                   I dont remember my password
                 </p>
-                <button className="block bg-yellow-500 text-center py-2 px-6 rounded-md md:hidden">
-                  iniciar
+                <button
+                  type="reset"
+                  onClick={isLogIn ? loginSubmit : registerSubmit}
+                  className="block bg-yellow-500 text-center py-2 px-6 rounded-md md:hidden"
+                >
+                  {isLogIn ? "login" : "register"}
                 </button>
               </div>
             </form>
