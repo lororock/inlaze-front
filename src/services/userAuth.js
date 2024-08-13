@@ -2,9 +2,8 @@ import axios from "axios";
 
 //movies
 
-export const getMy = async () => {
+export const getMy = async (token) => {
   try {
-    const token = localStorage.getItem("authToken");
 
     const headers = {
       Authorization: `Bearer ${token}`,
