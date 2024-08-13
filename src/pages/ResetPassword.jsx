@@ -9,8 +9,6 @@ function ResetPassword() {
   const [passwordConfirm, setPasswordConfirm] = useState("");
 
   const fetchMovieData = async () => {
-    console.log(confirmToken);
-    
     try {
       const userData = { password, passwordConfirm };
       await postResetPassword(userData, confirmToken);
