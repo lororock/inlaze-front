@@ -5,13 +5,12 @@ import Modal from "./Modal";
 
 function Header() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isToken, setIsToken] = useState("");
   const [isNavOpen, setIsNavOpen] = useState(false);
 
   const openModal = () => {
     const token = localStorage.getItem("authToken");
-    setIsToken(token);
-    if (!isToken || isToken.length === 0) {
+
+    if (!token || token.length === 0) {
       setIsModalOpen(true);
     } else {
       Swal.fire({
@@ -24,6 +23,7 @@ function Header() {
       }).then((result) => {
         if (result.isConfirmed) {
           localStorage.removeItem("authToken");
+          token(null); // Update the token state
           Swal.fire("closed!", "session closed.", "success");
         }
       });
