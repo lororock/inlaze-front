@@ -4,7 +4,6 @@ import axios from "axios";
 
 export const getMy = async (token) => {
   try {
-
     const headers = {
       Authorization: `Bearer ${token}`,
     };
@@ -27,15 +26,16 @@ export const putFavorite = async (id) => {
     };
 
     const response = await axios.put(
-      `http://localhost:9000/movies/favorite/${id}`, 
-      null, 
-      { headers } 
+      `http://localhost:9000/movies/favorite/${id}`,
+      null,
+      { headers }
     );
-
-    console.log("Usuario registrado:", response.data);
     return response.data;
   } catch (error) {
-    console.error("Error al agregar el favorito:", error.response?.data || error.message);
+    console.error(
+      "Error al agregar el favorito:",
+      error.response?.data || error.message
+    );
     throw error;
   }
 };
@@ -47,7 +47,6 @@ export const postRegisterUser = async (userData) => {
       "http://localhost:9000/auth/register",
       userData
     );
-    console.log("Usuario registrado:", response.data);
     return response.data;
   } catch (error) {
     console.error("Error al registrar el usuario:", error.response.data);
@@ -60,7 +59,6 @@ export const postConfirmToken = async (token) => {
     const response = await axios.post(
       `http://localhost:9000/auth/confirm/${token}`
     );
-    console.log("Usuario registrado:", response.data);
     return response.data;
   } catch (error) {
     console.error("Error al autenticar usuario:", error.response.data);
@@ -74,7 +72,6 @@ export const postLoginUser = async (userData) => {
       "http://localhost:9000/auth/login",
       userData
     );
-    console.log("Usuario registrado:", response.data);
     return response.data;
   } catch (error) {
     console.error("Error al inciciar el usuario:", error.response.data);
@@ -88,7 +85,6 @@ export const postReqResetPassword = async (userData) => {
       "http://localhost:9000/auth/request-reset-password",
       userData
     );
-    console.log("Correo enviado para recuperacion:", response.data);
     return response.data;
   } catch (error) {
     console.error("Error al recuperar:", error.response.data);
@@ -98,16 +94,14 @@ export const postReqResetPassword = async (userData) => {
 
 export const postResetPassword = async (userData, token) => {
   try {
-
     const headers = {
       Authorization: `Bearer ${token}`,
     };
     const response = await axios.post(
       "http://localhost:9000/auth/reset-password",
       userData,
-      {headers}
+      { headers }
     );
-    console.log("Contrasena cambiada con exito:", response.data);
     return response.data;
   } catch (error) {
     console.error("Error al de contrasena:", error.response.data);
