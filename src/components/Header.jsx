@@ -1,14 +1,36 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 import Modal from "./Modal";
 
 function Header() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isToken, setIsToken] = useState("");
   const [isNavOpen, setIsNavOpen] = useState(false);
 
-  const openModal = () => setIsModalOpen(true);
-  const NavOpen = () => setIsNavOpen(!isNavOpen);
+  const openModal = () => {
+    const token = localStorage.getItem("authToken");
+    setIsToken(token);
+    if (!isToken || isToken.length === 0) {
+      setIsModalOpen(true);
+    } else {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "Sure you want to log out?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes",
+        cancelButtonText: "No",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          localStorage.removeItem("authToken");
+          Swal.fire("closed!", "session closed.", "success");
+        }
+      });
+    }
+  };
   const closeModal = () => setIsModalOpen(false);
+  const NavOpen = () => setIsNavOpen(!isNavOpen);
   return (
     <>
       <header className="bg-black">
@@ -251,7 +273,10 @@ function Header() {
           </div>
         </div>
 
-        <div className={`${isNavOpen ? "block" : "hidden"} md:hidden`} id="mobile-menu">
+        <div
+          className={`${isNavOpen ? "block" : "hidden"} md:hidden`}
+          id="mobile-menu"
+        >
           <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3">
             <div
               onClick={openModal}

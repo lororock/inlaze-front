@@ -15,10 +15,8 @@ function Modal({ isOpen, onClose }) {
   const [password, setPassword] = useState("");
   const [isLogIn, setIsLogIn] = useState(false);
   const [isSignUp, setIsSignUp] = useState(false);
-  const [isRegister, setIsRegister] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
-
-  const [error, setError] = useState(null);
+  const [loadPassword, setLoadPassword] = useState(false);
 
   const logIn = (e) => setIsLogIn(e);
   const signUp = () => setIsSignUp(true);
@@ -43,38 +41,8 @@ function Modal({ isOpen, onClose }) {
       event.preventDefault();
       if (isLogIn) {
         loginSubmit();
-        const Toast = Swal.mixin({
-          toast: true,
-          position: "top-end",
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.onmouseenter = Swal.stopTimer;
-            toast.onmouseleave = Swal.resumeTimer;
-          },
-        });
-        Toast.fire({
-          icon: "success",
-          title: "Login in successfully",
-        });
       } else if (!isLogIn) {
         registerSubmit();
-        const Toast = Swal.mixin({
-          toast: true,
-          position: "top-end",
-          showConfirmButton: false,
-          timer: 6000,
-          timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.onmouseenter = Swal.stopTimer;
-            toast.onmouseleave = Swal.resumeTimer;
-          },
-        });
-        Toast.fire({
-          icon: "success",
-          title: "Signed in successfully, confirm email",
-        });
       }
     }
   };
@@ -82,40 +50,50 @@ function Modal({ isOpen, onClose }) {
   const registerSubmit = async () => {
     try {
       const userData = { email, password };
-      const data = await postRegisterUser(userData);
-      setIsRegister(data);
+      await postRegisterUser(userData);
       Swal.fire("Success", "User registered successfully", "success");
     } catch (e) {
-      setError("aqui el ", error, e);
-      Swal.fire("Error", "Failed to register user", "error", isRegister);
+      Swal.fire(
+        "Error",
+        "Failed to register user Check your email address or password",
+        "error",
+        e
+      );
     }
-    console.log("Form submitted");
   };
 
   const loginSubmit = async () => {
     try {
       const userData = { email, password };
       const data = await postLoginUser(userData);
-      console.log("LC", data.token);
       localStorage.setItem("authToken", data.token);
-      Swal.fire("Success", "User registered successfully", "success");
+      Swal.fire("Success", "User login successfully", "success");
+      onClose();
     } catch (e) {
-      setError("aqui el ", error, e);
-      Swal.fire("Error", "Failed to login user", "error", isRegister);
+      Swal.fire(
+        "Error",
+        "Failed to login user Check your email address or password",
+        "error",
+        e
+      );
     }
-    console.log("Form submitted");
   };
 
   const reqResetSubmit = async () => {
+    setLoadPassword(true);
     try {
       const userData = { email };
       await postReqResetPassword(userData);
-      Swal.fire("Success", "Revisa tu correo para restaurar contrasena", "success");
+      Swal.fire(
+        "Success",
+        "Check your email to reset your password",
+        "success"
+      );
     } catch (e) {
-      Swal.fire("Error", "Revisa la dirrecion de correo", "error", e);
+      Swal.fire("Error", "Check your email address or password", "error", e);
     }
+    setLoadPassword(false);
   };
-
   if (!isOpen) return null;
   return (
     <div className="fixed inset-0 flex items-center justify-center z-30 ">
@@ -173,7 +151,7 @@ function Modal({ isOpen, onClose }) {
               </div>
               <div className="flex flex-col-reverse justify-between items-center sm:flex-row md:justify-center">
                 <p
-                  onClick={reqResetSubmit}
+                  onClick={loadPassword ? null : reqResetSubmit}
                   className={`${
                     isLogIn ? "" : "hidden"
                   } text-center cursor-pointer`}
