@@ -97,11 +97,16 @@ export const postReqResetPassword = async (userData) => {
   }
 };
 
-export const postResetPassword = async (userData) => {
+export const postResetPassword = async (userData, token) => {
   try {
+
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
     const response = await axios.post(
       "http://localhost:9000/auth/reset-password",
-      userData
+      userData,
+      {headers}
     );
     console.log("Contrasena cambiada con exito:", response.data);
     return response.data;

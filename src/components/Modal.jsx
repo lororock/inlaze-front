@@ -1,5 +1,9 @@
 import { useState } from "react";
-import { postRegisterUser, postLoginUser } from "../services/userAuth";
+import {
+  postRegisterUser,
+  postLoginUser,
+  postReqResetPassword,
+} from "../services/userAuth";
 import Swal from "sweetalert2";
 
 import PropTypes from "prop-types";
@@ -92,7 +96,7 @@ function Modal({ isOpen, onClose }) {
     try {
       const userData = { email, password };
       const data = await postLoginUser(userData);
-      console.log('LC',data.token);
+      console.log("LC", data.token);
       localStorage.setItem("authToken", data.token);
       Swal.fire("Success", "User registered successfully", "success");
     } catch (e) {
@@ -100,6 +104,16 @@ function Modal({ isOpen, onClose }) {
       Swal.fire("Error", "Failed to login user", "error", isRegister);
     }
     console.log("Form submitted");
+  };
+
+  const reqResetSubmit = async () => {
+    try {
+      const userData = { email };
+      await postReqResetPassword(userData);
+      Swal.fire("Success", "Revisa tu correo para restaurar contrasena", "success");
+    } catch (e) {
+      Swal.fire("Error", "Revisa la dirrecion de correo", "error", e);
+    }
   };
 
   if (!isOpen) return null;
@@ -159,6 +173,7 @@ function Modal({ isOpen, onClose }) {
               </div>
               <div className="flex flex-col-reverse justify-between items-center sm:flex-row md:justify-center">
                 <p
+                  onClick={reqResetSubmit}
                   className={`${
                     isLogIn ? "" : "hidden"
                   } text-center cursor-pointer`}

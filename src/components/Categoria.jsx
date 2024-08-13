@@ -40,7 +40,6 @@ function Categoria({ moviesData }) {
     } catch (e) {
       console.log(e);
     }
-    console.log("Form submitted");
   };
   return (
     <>
