@@ -25,7 +25,7 @@ function Index() {
     };
 
     fetchMovieData();
-  });
+  }, [location.search]);
   return (
     <>
       <MainBanner />
