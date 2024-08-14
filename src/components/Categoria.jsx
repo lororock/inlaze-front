@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
+import Swal from "sweetalert2";
 import PropTypes from "prop-types";
 import { putFavorite } from "../services/userAuth";
 
@@ -8,6 +9,17 @@ import "swiper/css";
 function Categoria({ moviesData }) {
   const radius = 50;
   const circumference = 2 * Math.PI * radius;
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.onmouseenter = Swal.stopTimer;
+      toast.onmouseleave = Swal.resumeTimer;
+    },
+  });
 
   const getStrokeDashoffset = (percentage) => {
     return circumference - (percentage / 100) * circumference;
@@ -35,8 +47,16 @@ function Categoria({ moviesData }) {
   const addfavorite = async (id) => {
     try {
       await putFavorite(id);
+      Toast.fire({
+        icon: "success",
+        title: "Movie added to favorites",
+      });
     } catch (error) {
-      return error
+      Toast.fire({
+        icon: "error",
+        title: "This movie is already in your favorites",
+      });
+      return error;
     }
   };
   return (
