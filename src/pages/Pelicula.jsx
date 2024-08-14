@@ -5,6 +5,7 @@ import PeliculaBanner from "../components/PeliculaBanner";
 import Cast from "../components/Cast";
 import Recommnedations from "../components/Recommendations";
 import PeliculaNotFind from "../components/PeliculaNotFind";
+import Loaging from "../components/Loaging";
 
 function Pelicula() {
   const { id } = useParams();
@@ -24,11 +25,11 @@ function Pelicula() {
     fetchMovieData();
   }, [id]);
   if (error) {
-    return <PeliculaNotFind />
+    return <PeliculaNotFind />;
   }
 
   if (!movieData) {
-    return <div>Cargando...</div>;
+    return <Loaging />;
   }
 
   return (
