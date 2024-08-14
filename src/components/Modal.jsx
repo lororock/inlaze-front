@@ -67,7 +67,11 @@ function Modal({ isOpen, onClose }) {
       const userData = { email, password };
       const data = await postLoginUser(userData);
       localStorage.setItem("authToken", data.token);
-      Swal.fire("Success", "User login successfully", "success");
+      Swal.fire({
+        icon: "success",
+        title: "User login successfully",
+        showConfirmButton: false,
+        timer: 1500});
       onClose();
     } catch (e) {
       Swal.fire(

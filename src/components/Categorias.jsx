@@ -24,14 +24,14 @@ function Categorias() {
       setIsTokenPresent(!!token);
 
       try {
-        const data = await getPopulars();
-        const data2 = await getNowPlaying();
-        const data3 = await getUpComing();
-        const data4 = await getTopRated();
-        setPopularsData(data);
-        setPlayingsData(data2);
-        setComingsData(data3);
-        setRatesData(data4);
+        const populars = await getPopulars();
+        const playing = await getNowPlaying();
+        const coming = await getUpComing();
+        const rated = await getTopRated();
+        setPopularsData(populars);
+        setPlayingsData(playing);
+        setComingsData(coming);
+        setRatesData(rated);
       } catch (error) {
         setError(error);
       }
