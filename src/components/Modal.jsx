@@ -56,9 +56,9 @@ function Modal({ isOpen, onClose }) {
       Swal.fire(
         "Error",
         "Failed to register user Check your email address or password",
-        "error",
-        e
+        "error"
       );
+      throw e;
     }
   };
 
@@ -71,15 +71,16 @@ function Modal({ isOpen, onClose }) {
         icon: "success",
         title: "User login successfully",
         showConfirmButton: false,
-        timer: 1500});
+        timer: 1500,
+      });
       onClose();
     } catch (e) {
       Swal.fire(
         "Error",
         "Failed to login user Check your email address or password",
-        "error",
-        e
+        "error"
       );
+      throw e;
     }
   };
 
@@ -94,7 +95,8 @@ function Modal({ isOpen, onClose }) {
         "success"
       );
     } catch (e) {
-      Swal.fire("Error", "Check your email address or password", "error", e);
+      Swal.fire("Error", "Check your email address or password", "error");
+      throw e;
     }
     setLoadPassword(false);
   };

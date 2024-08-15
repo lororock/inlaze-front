@@ -1,4 +1,31 @@
+import { useEffect, useState } from "react";
+import { getGenres } from "../services/getData";
+import PeliculaNotFind from "./PeliculaNotFind";
+import Loaging from "./Loaging";
+
 function Filters() {
+  const [genresData, setGenresData] = useState(null);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchGenresData = async () => {
+      try {
+        const genres = await getGenres();
+        setGenresData(genres);
+      } catch (error) {
+        setError(error);
+      }
+    };
+
+    fetchGenresData();
+  }, []);
+  if (error) {
+    return <PeliculaNotFind />;
+  }
+
+  if (!genresData) {
+    return <Loaging />;
+  }
   return (
     <>
       <aside className="text-white w-full p-4 bg-[#303030] h-auto flex flex-wrap justify-between sm:block sm:w-1/4">
@@ -50,25 +77,13 @@ function Filters() {
             <option value="28" selected disabled>
               ____________
             </option>
-            <option value="28">Action</option>
-            <option value="12">Adventure</option>
-            <option value="16">Animation</option>
-            <option value="35">Comedy</option>
-            <option value="80">Crime</option>
-            <option value="99">Documentary</option>
-            <option value="18">Drama</option>
-            <option value="10751">Family</option>
-            <option value="14">Fantasy</option>
-            <option value="36">History</option>
-            <option value="27">Horror</option>
-            <option value="10402">Music</option>
-            <option value="9648">Mystery</option>
-            <option value="10749">Romance</option>
-            <option value="878">Science Fiction</option>
-            <option value="10770">TV Movie</option>
-            <option value="53">Thriller</option>
-            <option value="10752">War</option>
-            <option value="37">Western</option>
+            {genresData.genres.map((genre, index) => {
+              return (
+                <option key={index} value={genre.id}>
+                  {genre.name}
+                </option>
+              );
+            })}
           </select>
         </div>
         <div className="w-full">

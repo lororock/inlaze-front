@@ -27,7 +27,7 @@ function ResetPassword() {
     </svg>
   );
 
-  const fetchMovieData = async () => {
+  const fetchPasswordReset = async () => {
     try {
       const userData = { password, passwordConfirm };
       await postResetPassword(userData, confirmToken);
@@ -57,7 +57,7 @@ function ResetPassword() {
 
   const handleSubmit = (e) => {
     e.preventDefault(); // Previene el comportamiento predeterminado del formulario
-    fetchMovieData(); // Llama a la función para confirmar el token
+    fetchPasswordReset(); // Llama a la función para confirmar el token
   };
 
   return (

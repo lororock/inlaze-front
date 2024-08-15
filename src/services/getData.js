@@ -11,15 +11,15 @@ export const getMovie = async (movieId) => {
   }
 };
 
-export const getCredits = async (movieId) => {
+export const getMovies = async () => {
   try {
     const response = await axiosInstance.get(
-      `movie/${movieId}/credits?language=en-US`
+      "discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc"
     );
-    const movieData = response.data;
-    return movieData;
+    const { data } = response;
+    return data;
   } catch (error) {
-    console.error("Error:", error);
+    console.error("Error:", error.message);
     throw error;
   }
 };
@@ -33,19 +33,6 @@ export const getRecommendations = async (movieId) => {
     return movieData;
   } catch (error) {
     console.error("Error:", error);
-    throw error;
-  }
-};
-
-export const getMovies = async () => {
-  try {
-    const response = await axiosInstance.get(
-      "discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc"
-    );
-    const { data } = response;
-    return data;
-  } catch (error) {
-    console.error("Error:", error.message);
     throw error;
   }
 };
@@ -102,11 +89,24 @@ export const getTopRated = async () => {
   }
 };
 
-export const getGenders = async () => {
+export const getGenres = async () => {
   try {
     const response = await axiosInstance.get("genre/movie/list?language=en");
     const { data } = response;
     return data;
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+};
+
+export const getCredits = async (movieId) => {
+  try {
+    const response = await axiosInstance.get(
+      `movie/${movieId}/credits?language=en-US`
+    );
+    const movieData = response.data;
+    return movieData;
   } catch (error) {
     console.error("Error:", error);
     throw error;

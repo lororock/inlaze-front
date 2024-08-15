@@ -9,7 +9,7 @@ function Cast({ id }) {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchMovieData = async () => {
+    const fetchCreditsData = async () => {
       try {
         const data = await getCredits(id);
         setCreditsData(data);
@@ -18,7 +18,7 @@ function Cast({ id }) {
       }
     };
 
-    fetchMovieData();
+    fetchCreditsData();
   }, [id]);
   if (error) {
     return <PeliculaNotFind />

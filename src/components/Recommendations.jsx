@@ -11,7 +11,7 @@ function Recommnedation({ id }) {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchMovieData = async () => {
+    const fetchMoviesData = async () => {
       try {
         const data = await getRecommendations(id);
         setRecommendationData(data);
@@ -20,7 +20,7 @@ function Recommnedation({ id }) {
       }
     };
 
-    fetchMovieData();
+    fetchMoviesData();
   }, [id]);
   if (error) {
     return <PeliculaNotFind />

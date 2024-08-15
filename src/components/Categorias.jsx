@@ -19,7 +19,7 @@ function Categorias() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchMovieData = async () => {
+    const fetchMoviesData = async () => {
       const token = localStorage.getItem("authToken");
       setIsTokenPresent(!!token);
 
@@ -37,7 +37,7 @@ function Categorias() {
       }
     };
 
-    fetchMovieData();
+    fetchMoviesData();
   }, [setIsTokenPresent]);
   if (error) {
     return <PeliculaNotFind />;
