@@ -1,12 +1,15 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 import Swal from "sweetalert2";
 import Modal from "./Modal";
 
-function Header() {
+function Header({ onReloadCategorias }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isNavOpen, setIsNavOpen] = useState(false);
-
+  const handleSomeAction = () => {
+    onReloadCategorias();
+  };
   const openModal = () => {
     const token = localStorage.getItem("authToken");
 
@@ -23,6 +26,7 @@ function Header() {
       }).then((result) => {
         if (result.isConfirmed) {
           localStorage.removeItem("authToken");
+          handleSomeAction();
           token(null); // Update the token state
           Swal.fire("closed!", "session closed.", "success");
         }
@@ -329,9 +333,16 @@ function Header() {
           </div>
         </div>
       </header>
-      <Modal isOpen={isModalOpen} onClose={closeModal} />
+      <Modal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        handleSomeAction={handleSomeAction}
+      />
     </>
   );
 }
 
+Header.propTypes = {
+  onReloadCategorias: PropTypes.func.isRequired,
+};
 export default Header;

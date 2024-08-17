@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { getMovies } from "../services/getData";
 import { getPopulars } from "../services/getData";
 import { getNowPlaying } from "../services/getData";
 import { getUpComing } from "../services/getData";
@@ -10,6 +11,7 @@ import Loaging from "./Loaging";
 import PeliculaNotFind from "./PeliculaNotFind";
 
 function Categorias() {
+  const [moviesData, setMoviesData] = useState(null);
   const [popularsData, setPopularsData] = useState(null);
   const [playingsData, setPlayingsData] = useState(null);
   const [comingsData, setComingsData] = useState(null);
@@ -24,13 +26,15 @@ function Categorias() {
       setIsTokenPresent(!!token);
 
       try {
-        const populars = await getPopulars();
         const playing = await getNowPlaying();
+        const populars = await getPopulars();
         const coming = await getUpComing();
         const rated = await getTopRated();
+        const movies = await getMovies();
         setPopularsData(populars);
         setPlayingsData(playing);
         setComingsData(coming);
+        setMoviesData(movies);
         setRatesData(rated);
       } catch (error) {
         setError(error);
@@ -51,6 +55,14 @@ function Categorias() {
       <div className="block sm:flex bg-[#262626]">
         <Filters />
         <main className="w-full sm:w-3/4 p-4 text-white space-y-8 bg-[#424242]">
+          {isTokenPresent ? (
+            <div>
+              <h2 className="text-2xl font-bold mb-4">Filtrados</h2>
+              <Categoria moviesData={moviesData} />
+            </div>
+          ) : (
+            <></>
+          )}
           <h2 className="text-2xl font-bold mb-4">Popular</h2>
           <Categoria moviesData={popularsData} />
 

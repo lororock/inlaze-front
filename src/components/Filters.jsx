@@ -91,7 +91,7 @@ function Filters() {
           <input
             type="range"
             min="0"
-            max="100"
+            max="10"
             className="w-full bg-[#1C1C1C] custom-range"
           ></input>
           <div className="flex justify-between text-xs text-white mt-1">

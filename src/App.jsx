@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { useState } from "react";
 import Header from "./components/Header";
 import Index from "./pages/Index";
 import Pelicula from "./pages/Pelicula";
@@ -6,6 +7,11 @@ import NotFound from "./pages/NotFound";
 import ResetPassword from "./pages/ResetPassword";
 
 const App = () => {
+  const [reloadCategorias, setReloadCategorias] = useState(false);
+  const handleReloadCategorias = () => {
+    console.log('recarga');
+    setReloadCategorias((prev) => !prev);
+  };
   return (
     <Router>
       <Routes>
@@ -13,8 +19,8 @@ const App = () => {
           path="/"
           element={
             <>
-              <Header />
-              <Index />
+              <Header onReloadCategorias={handleReloadCategorias} />
+              <Index key={reloadCategorias} />
             </>
           }
         />

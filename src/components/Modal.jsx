@@ -10,7 +10,7 @@ import PropTypes from "prop-types";
 import imgLogIn from "../assets/LogIn.png";
 import imgSingUp from "../assets/SignUp.png";
 
-function Modal({ isOpen, onClose }) {
+function Modal({ isOpen, onClose, handleSomeAction }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLogIn, setIsLogIn] = useState(false);
@@ -73,6 +73,7 @@ function Modal({ isOpen, onClose }) {
         showConfirmButton: false,
         timer: 1500,
       });
+      handleSomeAction()
       onClose();
     } catch (e) {
       Swal.fire(
@@ -241,5 +242,6 @@ function Modal({ isOpen, onClose }) {
 Modal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
+  handleSomeAction: PropTypes.func.isRequired,
 };
 export default Modal;
