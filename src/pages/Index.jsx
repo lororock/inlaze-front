@@ -1,11 +1,12 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import PropTypes from "prop-types";
 import { postConfirmToken } from "../services/userAuth.js";
 
 import MainBanner from "../components/MainBanner.jsx";
 import Categorias from "../components/Categorias.jsx";
 
-function Index() {
+function Index({ onReload }) {
   const location = useLocation();
 
   useEffect(() => {
@@ -28,9 +29,13 @@ function Index() {
   return (
     <>
       <MainBanner />
-      <Categorias />
+      <Categorias key={onReload} />
     </>
   );
 }
+
+Index.propTypes = {
+  onReload: PropTypes.bool.isRequired,
+};
 
 export default Index;

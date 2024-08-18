@@ -9,7 +9,6 @@ import ResetPassword from "./pages/ResetPassword";
 const App = () => {
   const [reloadCategorias, setReloadCategorias] = useState(false);
   const handleReloadCategorias = () => {
-    console.log('recarga');
     setReloadCategorias((prev) => !prev);
   };
   return (
@@ -20,7 +19,7 @@ const App = () => {
           element={
             <>
               <Header onReloadCategorias={handleReloadCategorias} />
-              <Index key={reloadCategorias} />
+              <Index onReload={reloadCategorias} />
             </>
           }
         />
